@@ -67,16 +67,17 @@ class Blockchain {
             if (self.chain.length>0) {
                 // previous block hash
                 block.previousHash = self.chain[self.chain.length-1].hash;
-              }
-              block.height = block.height + 1;
+             }
               //var lclTime = new Date().getTime().toString();
               block.time = new Date().getTime().toString().slice(0,-3);
               // SHA256 requires a string of data
               block.hash = SHA256(JSON.stringify(block)).toString();
               // add block to chain
               self.chain.push(block);
+              self.height += 1;
               console.log(block);
-              resolve(block);    
+              resolve(block);
+              block.height = self.height;    
         });
     }
 
