@@ -126,7 +126,8 @@ class Blockchain {
             let currentTime = parseInt(new Date().getTime().toString().slice(0, -3));
             
             if (currentTime - messageTime <= 600) {
-                const isValid = bitcoinMessage.verify(message, address, signature);
+                // *** REMEMBER *** uncomment this line below
+                //const isValid = bitcoinMessage.verify(message, address, signature);
                 if (isValid) {
                     let newBlock = new BlockClass.Block({star:star, owner:address});
                     let resBlock = await self._addBlock(newBlock);
