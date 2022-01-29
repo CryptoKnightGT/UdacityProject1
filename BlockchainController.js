@@ -24,9 +24,9 @@ class BlockchainController {
     validateChainEndPoint()   {
         let self = this;
         let errArray =[];
-        this.app.get("/validateChain", async(req, res) =>{
+        self.app.get("/test", async(req, res) =>{
             //Call the validateChain function in Blockchain Class
-            await this.blockchain.validateChain();
+            await self.blockchain.validateChain();
             //If validateChain return errors then respond with error code status(500)
             if(errArray.length === 0){ // success
                 return res.status(200).json("Blockchain is good");
