@@ -1,3 +1,5 @@
+const { Blockchain } = require("./src/blockchain");
+
 /**
  *          BlockchainController
  * 
@@ -16,8 +18,24 @@ class BlockchainController {
         this.submitStar();
         this.getBlockByHash();
         this.getStarsByOwner();
+        this.validateChainEndPoint();
     }
 
+    validateChainEndPoint()   {
+        let self = this;
+        let errArray =[];
+        this.app.get("/validateChain", async(req, res) =>{
+            //Call the validateChain function in Blockchain Class
+            await this.blockchain.validateChain();
+            //If validateChain return errors then respond with error code status(500)
+            if(errArray.length === 0){ // success
+                return res.status(200).json("Blockchain is good");
+            } else {
+                return res.status(500).send("Blockchain not valid");
+            }
+    //Else validateChain respond with success code status(200)
+        });
+    } 
     // Enpoint to Get a Block by Height (GET Endpoint)
     getBlockByHeight() {
         this.app.get("/block/height/:height", async (req, res) => {
