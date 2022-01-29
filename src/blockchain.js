@@ -136,8 +136,8 @@ class Blockchain {
             
             if (currentTime - messageTime <= 600) {
                 // *** REMEMBER *** uncomment this line below
-                //const isValid = bitcoinMessage.verify(message, address, signature);
-                const isValid = true;
+                const isValid = bitcoinMessage.verify(message, address, signature);
+                //const isValid = true; // above doesnt work with v17.3 so for testing override it
                 if (isValid) {
                     let newBlock = new BlockClass.Block({star:star, owner:address});
                     let resBlock = await self._addBlock(newBlock);
