@@ -26,14 +26,13 @@ class BlockchainController {
         let errArray =[];
         self.app.get("/test", async(req, res) =>{
             //Call the validateChain function in Blockchain Class
-            await self.blockchain.validateChain();
+            errArray = await self.blockchain.validateChain();
             //If validateChain return errors then respond with error code status(500)
-            if(errArray.length === 0){ // success
-                return res.status(200).json("Blockchain is good");
-            } else {
-                return res.status(500).send("Blockchain not valid");
-            }
-    //Else validateChain respond with success code status(200)
+            if(errArray) { 
+                return res.status(200).json(errArray); //this will list out the   errors 
+              } else {
+                return res.status(404).send("No error was not found"); //which means _addBlock was successful
+              }
         });
     } 
     // Enpoint to Get a Block by Height (GET Endpoint)
