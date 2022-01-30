@@ -67,7 +67,7 @@ class Blockchain {
         return new Promise(async (resolve, reject) => {
             if (self.chain.length>0) {
                 // previous block hash
-                await self.validateChain();
+                errArray = await self.validateChain();
                 //console.log("ERR1: " + errArray);
                 if (errArray.length > 0) {
                     reject(errArray);
